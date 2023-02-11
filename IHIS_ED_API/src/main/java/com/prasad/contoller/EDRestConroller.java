@@ -1,0 +1,22 @@
+package com.prasad.contoller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.prasad.binding.ElizibilityBinding;
+import com.prasad.edservice.EdService;
+
+@RestController
+public class EDRestConroller {
+@Autowired
+	EdService edservice;
+@GetMapping("/eligibility/{caseNum}")
+public ResponseEntity<ElizibilityBinding> checkEligibility(@PathVariable Long caseNum){
+ElizibilityBinding caseNumber=	edservice.determineEligiblity(caseNum);
+	return new ResponseEntity<>(caseNumber,HttpStatus.OK);
+}
+}
